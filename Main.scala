@@ -15,18 +15,18 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import argonaut._, Argonaut._
 
 object Main {
+  val client_id = ...
+  val client_secret = ...
+  val password = ...
+  val username = ...
+  val redirect_uri = "https://httpbin.org/"
+  val state = "required-shit-i-don't-care-about"
+
   val driver = new HtmlUnitDriver
 
   def main(args: Array[String]): Unit = {
     accessToken()
   }
-
-  val client_id = ...
-  val client_secret = ...
-  val password = ...
-  val box_login = "user@example.com" // will prefill the username input field
-  val redirect_uri = "https://httpbin.org/"
-  val state = "required-shit-i-don't-care-about"
 
   private def accessToken() = {
     val url = new URIBuilder("https://app.box.com/api/oauth2/authorize")
@@ -34,7 +34,7 @@ object Main {
     url.setParameter("client_id", client_id)
     url.setParameter("redirect_uri", redirect_uri)
     url.setParameter("state", state)
-    url.setParameter("box_login", box_login)
+    url.setParameter("box_login", username)
 
     val accessTokenResponse = authorize(url.build.toString)
 
